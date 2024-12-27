@@ -1,0 +1,11 @@
+<div class="CounterAstro">
+    <button class="plus">Vanilla JS counter: <span class="value">0</span></button>
+</div>
+    
+<script is:inline>
+    document.querySelectorAll(".CounterAstro").forEach(counter => {
+        const plus = counter.querySelector('button.plus')
+        const value = counter.querySelector(".value")
+        plus.onclick  = ()=>{value.textContent = parseInt(value.textContent) + 1}
+    });
+</script>

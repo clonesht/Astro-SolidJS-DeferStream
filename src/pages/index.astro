@@ -1,16 +1,21 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import CounterAstro from "../components/CounterAstro.astro";
+import Counter from "../components/Counter.jsx";
+import Time from "../components/Time.jsx";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="SolidJS Counter in Astro">
+  <main>
+    <h1>Welcome to Astro with SolidJS</h1>
+
+    <CounterAstro />
+    <Counter client:load />
+
+    <p>Blocking, 5s request in progress...</p>
+
+    <Time client:load />
+
+    Done!
+  </main>
+</Layout>
