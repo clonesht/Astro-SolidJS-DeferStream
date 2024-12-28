@@ -1,24 +1,23 @@
-import { createAsync } from "@solidjs/router";
 import { Suspense } from "solid-js";
-import { createSignal, onMount } from "solid-js";
+import { createSignal, onMount, createResource } from "solid-js";
+import { isServer } from "solid-js/web";
 
 let renderCount = 1;
 
 async function getCurrentTime() {
-  // Simulating a server delay
   console.log("getCurrentTime call");
+  // Simulating a server delay
   await new Promise((resolve) => setTimeout(resolve, 5000));
-  return `${new Date().toLocaleTimeString()}`;
+  return new Date().toLocaleTimeString();
 }
 
 function TimeDisplay() {
-  const time = createAsync(
-    () => {
-      return getCurrentTime();
-    },
-    { deferStream: true }
+  const [time] = createResource(getCurrentTime);
+  return (
+    <div>
+      Current time is: {time()} (isServer: {isServer.toString()})
+    </div>
   );
-  return <div>{time()}</div>;
 }
 
 export default function Time() {

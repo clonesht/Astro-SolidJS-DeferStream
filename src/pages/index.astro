@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import CounterAstro from "../components/CounterAstro.astro";
 import Counter from "../components/Counter.jsx";
 import Time from "../components/Time.jsx";
+
+const disable_solidjs_counter = Astro.url.searchParams.get('disable_solidjs_counter') === 'true';
 ---
 
 <Layout title="SolidJS Counter in Astro">
@@ -10,7 +12,23 @@ import Time from "../components/Time.jsx";
     <h1>Welcome to Astro with SolidJS</h1>
 
     <CounterAstro />
-    <Counter client:load />
+    
+    { disable_solidjs_counter ? (
+      <a href="?disable_solidjs_counter=false">Show SolidJS counter</a>
+    ) : (
+     <Counter client:load/>
+     <a href="?disable_solidjs_counter=true">Hide SolidJS counter</a>
+    )}
+
+    <p>
+      Problem: The TimeDisplay component resource will be reloaded on the client side if:
+      <ul>
+        <li>You have multiple SolidJS components on the page, and</li>
+        <li>
+          The visitor interacts with the page during the deferred component loading time.
+        </li>
+      </ul>
+    </p>
 
     <p>Blocking, 5s request in progress...</p>
 
